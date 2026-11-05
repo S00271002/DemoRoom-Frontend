@@ -1,4 +1,16 @@
 <main>
   <h2>Demos</h2>
-  <p>Your demos will appear here.</p>
+  @if (loading())  {
+    <p>Loading demos...</p>
+  }
+  @else if (errorMessage()) {
+    <p>{{errorMessage()}}</p>
+  }
+  
+  @for (demo of demos(); track demo._id) {
+    <a [routerLink]="['/demos', demo._id]">{{ demo.title }}</a>
+  }
+  @empty {
+    <p>No demos available.</p>
+  }
 </main>

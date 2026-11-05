@@ -1,0 +1,27 @@
+<main>
+  <h2>Demos</h2>
+
+  <a [routerLink]="['/']">Back to Demos</a>
+
+  @if (loading())  {
+    <p>Loading demos...</p>
+  }
+  @else if (errorMessage()) {
+    <p>{{errorMessage()}}</p>
+  }
+  @else {
+    @if (demo(); as selectedDemo) {
+        <form [formGroup]="editForm">
+            <label for="demo-title">Title</label>
+            <input id="demo-title" type="text" formControlName="title" />
+            <label for="demo-description">Description</label>
+            <textarea id="demo-description" formControlName="description"></textarea>
+        </form>
+
+    }
+    @else {
+        <p>Demo not found.</p>
+    }
+  }
+  
+</main>
