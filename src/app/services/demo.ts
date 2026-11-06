@@ -17,4 +17,16 @@ export class DemoService {
   getDemo(id: string) {
     return this.http.get<Demo>(`${this.baseUrl}/${id}`);
   }
+
+  updateDemo(id: string, changes: Partial<Demo>) {
+    return this.http.patch<Demo>(`${this.baseUrl}/${id}`, changes);
+  }
+
+  deleteDemo(id: string) {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+ createDemo(demo: FormData) {
+  return this.http.post<{ demo: Demo }>(this.baseUrl, demo);
+  }
 }

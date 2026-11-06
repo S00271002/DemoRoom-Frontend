@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink }from '@angular/router'
+import { RouterLink, Router }from '@angular/router'
 import { DemoService } from '../../services/demo';
 import { ActivatedRoute } from '@angular/router';
 import { inject } from '@angular/core';
@@ -18,17 +18,97 @@ export class DemoDetail {
 
   demoService = inject(DemoService);
   route = inject(ActivatedRoute);
+  router = inject(Router);
 
   demo = signal<Demo | null>(null);
 
   loading = signal<boolean>(true);
   errorMessage = signal<string | null>(null);
 
+  saving = signal<boolean>(false);
+
+  saveMessage = signal<string | null>(null);
+
+  
+
+  saveDemo() {
+    if (this.saving()) {
+      return; // Prevent multiple submissions
+    }
+
+       
+    
+    if (this.editForm.invalid) {
+      this.editForm.markAllAsTouched();
+      return;
+    }
+    this.saving.set(true);
+
+    this.saveMessage.set("Saving...");
+    
+
+    const changes = this.editForm.getRawValue();
+
+    this.demoService.updateDemo(this.demo()?._id || '', changes).subscribe({
+        next: (updatedDemo) => {
+          this.saving.set(false);
+          this.saveMessage.set('Demo updated successfully.');
+          console.log('Demo updated successfully:', updatedDemo);
+          this.demo.set(updatedDemo);
+        },
+        error: (error: Error) => {
+          this.saving.set(false);
+          this.saveMessage.set('Error updating demo.');
+          console.error('Error updating demo:', error);
+          
+        }
+      });
+  }
+
+  deleteDemo() {
+    if (this.saving()) {
+      return; // Prevent multiple submissions
+    }
+
+    this.saving.set(true);
+    this.saveMessage.set("Deleting...");
+
+    const demoId = this.demo()?._id;
+    if (!demoId) {
+      console.error('No demo ID available for deletion.');
+      this.saving.set(false);
+      this.saveMessage.set('No demo ID available for deletion.');
+      return;
+    }
+
+    this.demoService.deleteDemo(demoId).subscribe({
+      next: () => {
+        this.saving.set(false);
+        this.saveMessage.set('Demo deleted successfully.');
+        console.log('Demo deleted successfully');
+        // Optionally, navigate away or reset the form after deletion
+        this.demo.set(null);
+        this.editForm.reset();
+        this.router.navigate(['/']); 
+      },
+      error: (error: Error) => {
+        this.saving.set(false);
+        this.saveMessage.set('Error deleting demo.');
+        console.error('Error deleting demo:', error);
+      }
+    });
+  }
+
   editForm = new FormGroup({
     title: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
+    description: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+
   });
 
   ngOnInit() {
@@ -39,7 +119,7 @@ export class DemoDetail {
           console.log('Demo data:', data);
           this.demo.set(data);
           this.loading.set(false);
-          this.editForm.patchValue({ title: data.title });
+          this.editForm.patchValue({ title: data.title, description: data.description });
         },
         error: (error: Error) => {
           console.error('Error fetching demo:', error);

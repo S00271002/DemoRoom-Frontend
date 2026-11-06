@@ -1,0 +1,21 @@
+<button [routerLink]="['/']">Back to List</button>
+
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <label for="demo-title">Title</label>
+    <input id="demo-title" type="text" formControlName="title" />
+    <label for="demo-description">Description</label>
+    <textarea id="demo-description" formControlName="description"></textarea>
+    <label for="bandId">Band ID</label>
+    <select id="bandId" formControlName="bandId">
+        <option value="">Select a band</option>
+        @for ((band of bands()); track band._id) {
+            <option [value]="band._id">{{ band.name }}</option>
+        } 
+    </select>
+    
+    <label for="audio">Mp3 File</label>
+    <input id="audio" type="file" accept=".mp3" (change)="onFileSelected($event)" />
+    
+    <button type="submit" [disabled]="creating()">Create</button>
+    <p role="status"> {{createMessage()}}</p>
+  </form>

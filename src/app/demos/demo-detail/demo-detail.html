@@ -11,13 +11,15 @@
   }
   @else {
     @if (demo(); as selectedDemo) {
-        <form [formGroup]="editForm">
+        <form [formGroup]="editForm" (ngSubmit)="saveDemo()">
             <label for="demo-title">Title</label>
             <input id="demo-title" type="text" formControlName="title" />
             <label for="demo-description">Description</label>
             <textarea id="demo-description" formControlName="description"></textarea>
+            <button type="submit" [disabled]="saving()">Save</button>
+            <button type="button" (click)="deleteDemo()" [disabled]="saving()">Delete</button>
+            <p role="status"> {{saveMessage()}}</p>
         </form>
-
     }
     @else {
         <p>Demo not found.</p>
