@@ -1,0 +1,14 @@
+<section class="comments">
+  <h4>Comments</h4>
+  @if (loading()) {
+    <p>Loading comments...</p>
+  } @else if (errorMessage()) {
+    <p>{{ errorMessage() }}</p>
+  } @else {
+    @for (comment of comments(); track comment._id) {
+      <p class="comment">{{ comment.text }}</p>
+    } @empty {
+      <p>No comments yet.</p>
+    }
+  }
+</section>

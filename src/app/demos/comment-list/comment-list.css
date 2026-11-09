@@ -1,0 +1,14 @@
+.comments {
+  margin-block: 0.75rem;
+  padding-inline-start: 1rem;
+  border-inline-start: 2px solid currentColor;
+}
+
+.comments h4 {
+  margin-block: 0 0.5rem;
+}
+
+.comment {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}

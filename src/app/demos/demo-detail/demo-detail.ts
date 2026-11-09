@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { inject } from '@angular/core';
 import { Demo } from '../../models/demo';
 import { signal } from '@angular/core';
+import { DemoVersions } from '../demo-versions/demo-versions';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, DemoVersions],
   selector: 'app-demo-detail',
   styleUrl: './demo-detail.css',
   templateUrl: './demo-detail.html',
@@ -29,15 +30,11 @@ export class DemoDetail {
 
   saveMessage = signal<string | null>(null);
 
-  
-
   saveDemo() {
     if (this.saving()) {
       return; // Prevent multiple submissions
     }
 
-       
-    
     if (this.editForm.invalid) {
       this.editForm.markAllAsTouched();
       return;
@@ -46,7 +43,6 @@ export class DemoDetail {
 
     this.saveMessage.set("Saving...");
     
-
     const changes = this.editForm.getRawValue();
 
     this.demoService.updateDemo(this.demo()?._id || '', changes).subscribe({

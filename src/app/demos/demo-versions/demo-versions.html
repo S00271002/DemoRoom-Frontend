@@ -1,0 +1,19 @@
+<main>
+  <h2>Versions </h2>
+  @if (loading())  {
+    <p>Loading versions...</p>
+  }
+  @else if (errorMessage()) {
+    <p>{{errorMessage()}}</p>
+  }
+  
+  @for (version of versions(); track version._id) {
+    <section>
+      <h3>Version {{ version.versionNumber }}</h3>
+      <p>{{ version.changeNote }}</p>
+      <app-comment-list [demoId]="demoId()" [versionNumber]="version.versionNumber" />
+    </section>
+  }
+
+  <a [routerLink]="['/demos/new']">Create New Version</a>
+</main>

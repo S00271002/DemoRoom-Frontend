@@ -25,5 +25,9 @@
         <p>Demo not found.</p>
     }
   }
+
+  @if (demo(); as selectedDemo) {
+  <app-demo-versions [demoId]="selectedDemo._id" />
+}
   
 </main>

@@ -6,8 +6,6 @@ import {BandService} from '../../services/band';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 
-
-
 @Component({
   imports: [RouterLink, ReactiveFormsModule],
   selector: 'app-demo-create',
@@ -28,7 +26,7 @@ export class DemoCreate {
     bandId: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
   });
 
-  
+
   creating = signal<boolean>(false);
   createMessage = signal<string | null>(null);
   selectedFile: File | null = null;
