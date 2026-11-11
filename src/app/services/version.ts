@@ -20,6 +20,14 @@ export class VersionService {
         return this.http.get<Version[]>(`${this.baseUrl}/${demoId}/versions`);
     }
 
+    addVersion(demoId: string, audio: File, changeNote: string) {
+        const formData = new FormData();
+        formData.append('audio', audio);
+        formData.append('changeNote', changeNote);
+
+        return this.http.post<Version>(`${this.baseUrl}/${demoId}/versions`, formData);
+    }
+
    
 
 

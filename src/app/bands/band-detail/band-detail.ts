@@ -19,32 +19,30 @@ export class BandDetail {
   band = signal<Band | null>(null);
   
   loading = signal<boolean>(true)
+  saving = signal<boolean>(false);
 
   errorMessage = signal<string | null>(null);
+  saveMessage = signal<string | null>(null);
 
   editForm = new FormGroup({
     name: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
   });
-
-  saving = signal<boolean>(false);
-
-  saveMessage = signal<string | null>(null);
 
   saveBand() {
     if (this.saving()) {
       return; // Prevent multiple submissions
     }
 
-    if (this.editForm.invalid) {
+    if (this.editForm.invalid) { //checks if form input is valid 
       this.editForm.markAllAsTouched();
       return;
     }
     this.saving.set(true);
-
     this.saveMessage.set("Saving...");
     
-    const changes = this.editForm.getRawValue();
+    const changes = this.editForm.getRawValue(); //gets data from form
 
+    //passes the updated chnages to updateband which updates mongodb
     this.bandService.updateBand(this.band()?._id || '', changes).subscribe({
         next: (updatedBand) => {
           this.saving.set(false);

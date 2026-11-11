@@ -31,7 +31,7 @@ export class DemoCreate {
   createMessage = signal<string | null>(null);
   selectedFile: File | null = null;
 
-  onFileSelected(event: Event) {
+  onFileSelected(event: Event) { //dropdown to select band
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files?.[0] ?? null;
@@ -40,7 +40,7 @@ export class DemoCreate {
 
   ngOnInit() {
     this.bandService.getBands().subscribe({
-      next: (data) => {
+      next: (data) => { //gets all the bands for the form
         this.bands.set(data.map(band => ({ _id: band._id, name: band.name })));
       },
       error: (error: Error) => {
@@ -74,6 +74,7 @@ export class DemoCreate {
     this.creating.set(true);
     this.createMessage.set("Creating...");
 
+    //creates the demo with the entered data
     this.demoService.createDemo(formData).subscribe({
       next: (createdDemo ) => {
         this.creating.set(false);

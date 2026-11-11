@@ -15,5 +15,27 @@
     </section>
   }
 
-  <a [routerLink]="['/demos/new']">Create New Version</a>
+  <h3>Upload a new version</h3>
+
+  <label>
+    MP3 recording
+    <input #audioInput type="file" accept=".mp3" [disabled]="uploading()" />
+  </label>
+
+  <label>
+    What changed?
+    <textarea #noteInput maxlength="2000" [disabled]="uploading()"></textarea>
+  </label>
+
+  <button
+    type="button"
+    (click)="uploadVersion(audioInput, noteInput)"
+    [disabled]="uploading()"
+  >
+    {{ uploading() ? 'Uploading...' : 'Upload version' }}
+  </button>
+
+  @if (uploadError()) {
+    <p role="alert">{{ uploadError() }}</p>
+  }
 </main>

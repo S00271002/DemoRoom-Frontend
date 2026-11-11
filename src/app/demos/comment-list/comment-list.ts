@@ -16,6 +16,33 @@ export class CommentList {
   loading = signal(true);
   errorMessage = signal<string | null>(null);
 
+  posting = signal(false);
+  postError = signal<string | null>(null);
+
+  postComment(textarea: HTMLTextAreaElement) { //reads area inside text box
+    const text = textarea.value.trim(); //extracts text
+
+    if (!text || this.posting()) { //prevents repeated submissions
+      return;
+    }
+
+    this.posting.set(true);
+    this.postError.set(null);
+
+    //adds the comment to a specific version of a specific demo
+    this.commentService.addComment(this.demoId(), this.versionNumber(), text).subscribe({
+      next: (comment) => {
+        this.comments.update((comments) => [...comments, comment]);
+        textarea.value = '';
+        this.posting.set(false);
+      },
+      error: () => {
+        this.postError.set('Could not post comment. Please try again.');
+        this.posting.set(false);
+      },
+    });
+  }
+
   ngOnInit() {
     this.commentService.getComments(this.demoId(), this.versionNumber()).subscribe({
       next: (comments) => {

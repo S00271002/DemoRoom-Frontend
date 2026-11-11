@@ -45,6 +45,7 @@ export class DemoDetail {
     
     const changes = this.editForm.getRawValue();
 
+    //updates demo with new data
     this.demoService.updateDemo(this.demo()?._id || '', changes).subscribe({
         next: (updatedDemo) => {
           this.saving.set(false);
@@ -69,7 +70,7 @@ export class DemoDetail {
     this.saving.set(true);
     this.saveMessage.set("Deleting...");
 
-    const demoId = this.demo()?._id;
+    const demoId = this.demo()?._id; //finds demo by Id
     if (!demoId) {
       console.error('No demo ID available for deletion.');
       this.saving.set(false);
@@ -82,7 +83,7 @@ export class DemoDetail {
         this.saving.set(false);
         this.saveMessage.set('Demo deleted successfully.');
         console.log('Demo deleted successfully');
-        // Optionally, navigate away or reset the form after deletion
+        //moves back to demo screen after deletion
         this.demo.set(null);
         this.editForm.reset();
         this.router.navigate(['/']); 

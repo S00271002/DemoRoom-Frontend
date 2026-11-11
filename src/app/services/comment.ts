@@ -12,4 +12,11 @@ export class CommentService {
       `${this.baseUrl}/${demoId}/versions/${versionNumber}/comments`,
     );
   }
+
+  addComment(demoId: string, versionNumber: number, text: string) {
+    return this.http.post<DemoComment>(
+      `${this.baseUrl}/${demoId}/versions/${versionNumber}/comments`,
+      { text },
+    );
+  }
 }

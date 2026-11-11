@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 export class BandService {
 
     private http = inject(HttpClient);
-    private baseUrl = 'http://localhost:3000/api/bands';
+    private baseUrl = 'http://localhost:3000/api/bands'; //address of backend
 
     getBands() {
         return this.http.get<Band[]>(`${this.baseUrl}`);

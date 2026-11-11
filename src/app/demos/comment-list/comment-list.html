@@ -11,4 +11,21 @@
       <p>No comments yet.</p>
     }
   }
+
+  
+</section>
+
+<section class="add-comment">
+  <label>
+    Leave a comment
+    <textarea #commentText maxlength="5000" [disabled]="posting()"></textarea>
+  </label>
+
+  <button type="button" (click)="postComment(commentText)" [disabled]="posting()">
+    {{ posting() ? 'Posting...' : 'Post comment' }}
+  </button>
+
+  @if (postError()) {
+    <p role="alert">{{ postError() }}</p>
+  }
 </section>

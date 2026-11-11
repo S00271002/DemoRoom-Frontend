@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class DemoList {
 
-  demos$ = inject(DemoService).getDemos();
+  demos$ = inject(DemoService).getDemos(); //an observable list so it updates after changes
 
   demos = signal<Demo[]>([]);
 
@@ -22,6 +22,7 @@ export class DemoList {
   errorMessage = signal<string | null>(null);
 
   ngOnInit() {
+    //gets all demos
     this.demos$.subscribe({
       next: (data: Demo[]) => {
         this.demos.set(data);
