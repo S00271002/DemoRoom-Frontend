@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+.version-card {
+  margin-bottom: 1rem;
+  overflow-wrap: anywhere;
+}
+
+h3 {
+  margin: 0 0 0.5rem;
+}
+
+.version-card p {
+  margin: 0 0 0.65rem;
+  white-space: pre-wrap;
+}

@@ -1,0 +1,65 @@
+button[type="button"] {
+  margin-inline-start: 0.35rem;
+  border-color: var(--danger);
+  background: var(--surface);
+  color: var(--danger);
+}
+
+:host {
+  max-width: 72rem;
+}
+
+h1 {
+  margin: 0.65rem 0 1.25rem;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.demo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.demo-layout > form {
+  margin-top: 0;
+}
+
+.comments-panel {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.version-comments + .version-comments {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.version-comments {
+  scroll-margin-top: 1rem;
+}
+
+.version-comments:target h3 {
+  color: var(--link);
+}
+
+.version-comments h3 {
+  margin: 0;
+}
+
+@media (max-width: 48rem) {
+  .demo-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .comments-panel {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}

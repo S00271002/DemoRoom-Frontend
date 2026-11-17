@@ -5,12 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { inject } from '@angular/core';
 import { Demo } from '../../models/demo';
 import { signal } from '@angular/core';
+import { CommentList } from '../comment-list/comment-list';
 import { DemoVersions } from '../demo-versions/demo-versions';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  imports: [RouterLink, ReactiveFormsModule, DemoVersions],
+  imports: [RouterLink, ReactiveFormsModule, DemoVersions, CommentList],
   selector: 'app-demo-detail',
   styleUrl: './demo-detail.css',
   templateUrl: './demo-detail.html',

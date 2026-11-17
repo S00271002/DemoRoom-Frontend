@@ -1,5 +1,9 @@
 <mat-toolbar>
   <span>DemoRoom</span>
+  <label class="theme-toggle">
+    <input type="checkbox" [checked]="darkMode()" (change)="toggleDarkMode()" />
+    Dark mode
+  </label>
 </mat-toolbar>
 
 <router-outlet />

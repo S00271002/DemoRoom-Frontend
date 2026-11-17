@@ -1,41 +1,36 @@
-<main>
-  <h2>Versions </h2>
-  @if (loading())  {
+<section aria-labelledby="versions-heading">
+  <h2 id="versions-heading">Versions</h2>
+  @if (loading()) {
     <p>Loading versions...</p>
+  } @else if (errorMessage()) {
+    <p>{{ errorMessage() }}</p>
+  } @else {
+    @for (version of versions(); track version._id) {
+      <section class="card version-card">
+        <h3>Version {{ version.versionNumber }}</h3>
+        <p>{{ version.changeNote }}</p>
+        <a [attr.href]="'#comments-version-' + version.versionNumber">View comments for version {{ version.versionNumber }}</a>
+      </section>
+    } @empty {
+      <p>No versions yet.</p>
+    }
   }
-  @else if (errorMessage()) {
-    <p>{{errorMessage()}}</p>
-  }
-  
-  @for (version of versions(); track version._id) {
-    <section>
-      <h3>Version {{ version.versionNumber }}</h3>
-      <p>{{ version.changeNote }}</p>
-      <app-comment-list [demoId]="demoId()" [versionNumber]="version.versionNumber" />
-    </section>
-  }
 
-  <h3>Upload a new version</h3>
-
-  <label>
-    MP3 recording
-    <input #audioInput type="file" accept=".mp3" [disabled]="uploading()" />
-  </label>
-
-  <label>
-    What changed?
-    <textarea #noteInput maxlength="2000" [disabled]="uploading()"></textarea>
-  </label>
-
-  <button
-    type="button"
-    (click)="uploadVersion(audioInput, noteInput)"
-    [disabled]="uploading()"
-  >
-    {{ uploading() ? 'Uploading...' : 'Upload version' }}
-  </button>
-
-  @if (uploadError()) {
-    <p role="alert">{{ uploadError() }}</p>
-  }
-</main>
+  <section class="card">
+    <h3>Upload a new version</h3>
+    <label>
+      MP3 recording
+      <input #audioInput type="file" accept=".mp3" [disabled]="uploading()" />
+    </label>
+    <label>
+      What changed?
+      <textarea #noteInput maxlength="2000" [disabled]="uploading()"></textarea>
+    </label>
+    <button type="button" (click)="uploadVersion(audioInput, noteInput)" [disabled]="uploading()">
+      {{ uploading() ? 'Uploading...' : 'Upload version' }}
+    </button>
+    @if (uploadError()) {
+      <p role="alert">{{ uploadError() }}</p>
+    }
+  </section>
+</section>

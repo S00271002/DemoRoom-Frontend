@@ -1,1 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --background: #f3f6fb;
+  --text: #1c293b;
+  --surface: white;
+  --border: #d5dfed;
+  --field-border: #a8b7cd;
+  --link: #174b9c;
+  --action: #174b9c;
+  --action-hover: #103b7d;
+  --danger: #9e2525;
+  --toolbar: #172d4d;
+}
+
+:root[data-theme="dark"] {
+  --background: #101722;
+  --text: #e7edf7;
+  --surface: #1b2636;
+  --border: #36465c;
+  --field-border: #63758e;
+  --link: #9bc4ff;
+  --action: #24589f;
+  --action-hover: #2e69b8;
+  --danger: #ffb4b4;
+  --toolbar: #0c1320;
+}
+
+:root[data-theme="dark"] body {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font: 1rem/1.5 Roboto, system-ui, sans-serif;
+}
+
+router-outlet + * {
+  display: block;
+  max-width: 48rem;
+  margin: 1.75rem auto;
+  padding-inline: 1rem;
+}
+
+h2, h3, h4 {
+  line-height: 1.25;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.18em;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--action);
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+form {
+  margin-top: 1rem;
+}
+
+form, .card {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  background: var(--surface);
+}
+
+label {
+  display: block;
+  font-weight: 600;
+}
+
+input:not([type="checkbox"]), select, textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0.3rem 0 1rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--field-border);
+  border-radius: 0.4rem;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+}
+
+textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+[role="status"]:empty {
+  display: none;
+}
+
+[role="alert"] {
+  color: var(--danger);
+}
