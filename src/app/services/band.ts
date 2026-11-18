@@ -15,10 +15,6 @@ export class BandService {
         return this.http.get<Band[]>(`${this.baseUrl}`);
       }
     
-      getBand(id: string) {
-        return this.http.get<Band>(`${this.baseUrl}/${id}`);
-      }
-    
       updateBand(id: string, changes: Partial<Band>) {
         return this.http.patch<Band>(`${this.baseUrl}/${id}`, changes);
       }

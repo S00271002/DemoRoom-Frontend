@@ -8,6 +8,11 @@ mat-toolbar {
   font-weight: 600;
 }
 
+.home-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .theme-toggle {
   display: flex;
   align-items: center;
