@@ -19,6 +19,7 @@ export class CommentList {
   posting = signal(false);
   postError = signal<string | null>(null);
 
+  // gets comments from the form and calls addComment method
   postComment(textarea: HTMLTextAreaElement) { //reads area inside text box
     const text = textarea.value.trim(); //extracts text
 
@@ -44,6 +45,7 @@ export class CommentList {
   }
 
   ngOnInit() {
+    //gets all current comments
     this.commentService.getComments(this.demoId(), this.versionNumber()).subscribe({
       next: (comments) => {
         this.comments.set(comments);

@@ -13,6 +13,7 @@ export class App {
   private readonly document = inject(DOCUMENT);
   protected readonly darkMode = signal(true);
 
+  //starts website in darkmode 
   constructor() {
     effect(() => {
       this.document.documentElement.dataset['theme'] = this.darkMode() ? 'dark' : 'light';

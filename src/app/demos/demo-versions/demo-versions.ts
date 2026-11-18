@@ -19,8 +19,9 @@ export class DemoVersions {
   uploading = signal(false);
   uploadError = signal<string | null>(null);
 
+  //gets change note and audio from form and creates new version
   uploadVersion(audioInput: HTMLInputElement, noteInput: HTMLTextAreaElement) {
-    if (this.uploading()) return;
+    if (this.uploading()) return; //prevents multiple submissions
 
     const audio = audioInput.files?.[0];
     const changeNote = noteInput.value.trim();
