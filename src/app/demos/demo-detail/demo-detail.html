@@ -8,7 +8,7 @@
   } @else if (demo(); as selectedDemo) {
     <h1>{{ selectedDemo.title }}</h1>
 
-    <div class="demo-layout">
+    <app-demo-versions [demoId]="selectedDemo._id">
       <form [formGroup]="editForm" (ngSubmit)="saveDemo()">
         <h2>Demo details</h2>
         <label for="demo-title">Title</label>
@@ -19,27 +19,7 @@
         <button type="button" (click)="deleteDemo()" [disabled]="saving()">Delete demo</button>
         <p role="status">{{ saveMessage() }}</p>
       </form>
-
-      <aside class="card comments-panel" aria-labelledby="comments-heading">
-        <h2 id="comments-heading">Comments</h2>
-        @if (demoVersions.loading()) {
-          <p>Loading versions...</p>
-        } @else if (demoVersions.errorMessage(); as error) {
-          <p>{{ error }}</p>
-        } @else {
-          @for (version of demoVersions.versions(); track version._id) {
-            <section class="version-comments" tabindex="-1" [id]="'comments-version-' + version.versionNumber">
-              <h3>Version {{ version.versionNumber }}</h3>
-              <app-comment-list [demoId]="selectedDemo._id" [versionNumber]="version.versionNumber" />
-            </section>
-          } @empty {
-            <p>Upload a version to start commenting.</p>
-          }
-        }
-      </aside>
-
-      <app-demo-versions #demoVersions [demoId]="selectedDemo._id" />
-    </div>
+    </app-demo-versions>
   } @else {
     <p>Demo not found.</p>
   }

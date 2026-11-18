@@ -1,20 +1,5 @@
-<section aria-labelledby="versions-heading">
-  <h2 id="versions-heading">Versions</h2>
-  @if (loading()) {
-    <p>Loading versions...</p>
-  } @else if (errorMessage()) {
-    <p>{{ errorMessage() }}</p>
-  } @else {
-    @for (version of versions(); track version._id) {
-      <section class="card version-card">
-        <h3>Version {{ version.versionNumber }}</h3>
-        <p>{{ version.changeNote }}</p>
-        <a [attr.href]="'#comments-version-' + version.versionNumber">View comments for version {{ version.versionNumber }}</a>
-      </section>
-    } @empty {
-      <p>No versions yet.</p>
-    }
-  }
+<div class="demo-controls">
+  <ng-content />
 
   <section class="card">
     <h3>Upload a new version</h3>
@@ -33,4 +18,23 @@
       <p role="alert">{{ uploadError() }}</p>
     }
   </section>
+</div>
+
+<h2 id="versions-heading">Versions</h2>
+<section class="versions-list" aria-labelledby="versions-heading">
+  @if (loading()) {
+    <p>Loading versions...</p>
+  } @else if (errorMessage()) {
+    <p>{{ errorMessage() }}</p>
+  } @else {
+    @for (version of versions(); track version._id) {
+      <section class="card version-card">
+        <h3>Version {{ version.versionNumber }}</h3>
+        <p>{{ version.changeNote }}</p>
+        <app-comment-list [demoId]="demoId()" [versionNumber]="version.versionNumber" />
+      </section>
+    } @empty {
+      <p>No versions yet.</p>
+    }
+  }
 </section>

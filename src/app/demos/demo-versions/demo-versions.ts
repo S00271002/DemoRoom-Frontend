@@ -1,9 +1,11 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { VersionService } from '../../services/version';
+import { CommentList } from '../comment-list/comment-list';
 import type { Version } from '../../models/version';
 
 @Component({
   selector: 'app-demo-versions',
+  imports: [CommentList],
   styleUrl: './demo-versions.css',
   templateUrl: './demo-versions.html',
 })

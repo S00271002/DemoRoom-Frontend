@@ -1,5 +1,12 @@
 :host {
-  display: block;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  column-gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-areas:
+    ". heading"
+    "controls versions";
+  row-gap: 1rem;
+  align-items: start;
 }
 
 .version-card {
@@ -14,4 +21,29 @@ h3 {
 .version-card p {
   margin: 0 0 0.65rem;
   white-space: pre-wrap;
+}
+
+#versions-heading {
+  grid-area: heading;
+  margin: 0;
+}
+
+.versions-list {
+  grid-area: versions;
+}
+
+.demo-controls {
+  grid-area: controls;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (max-width: 48rem) {
+  :host {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "controls"
+      "heading"
+      "versions";
+  }
 }
